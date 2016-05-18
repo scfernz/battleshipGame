@@ -1,0 +1,66 @@
+body {
+  background-image: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/navy_blue.png");
+}
+
+td {
+    background-color: lightblue;
+    height: 55px;
+    width: 55px;
+    border: 5px solid grey;
+    text-align: center;
+    color: white;
+}
+
+.red {
+  background-color: red;
+}
+
+.orange {
+  background-color: orange
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  font-size: 48pt;
+  color: white;
+}
+
+h3 {
+    text-align: center;
+    font-size: 30pt;
+    color: white;
+}
+
+/*
+body {
+  background-image: url(http://4.bp.blogspot.com/-6zb1sArEyc0/U6qi2rF3aBI/AAAAAAAAezo/d-MmdU5ZmVc/s1600/1+mejor.jpg);
+}*/
+
+.jumbotron {
+  background-image: url(http://4.bp.blogspot.com/-6zb1sArEyc0/U6qi2rF3aBI/AAAAAAAAezo/d-MmdU5ZmVc/s1600/1+mejor.jpg);
+  background-size: cover;
+  background-position: center;
+  color: rgba(255,255,255,1);
+}
+
+.btn {
+  background-color: white;
+  color: black;
+}
+
+@media (max-width: 600px) {
+  h2 {
+    font-size: 20pt;
+  }
+  h3 {
+    font-size: 18pt;
+  }
+  td {
+    height: 30px;
+    width: 30px;
+  }
+}
