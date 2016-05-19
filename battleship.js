@@ -2,6 +2,8 @@
 var torpedoesLeft = 25;
 var board = [ [], [], [] , [], [], [], [], [], [], [] ];
 var hitScore = 0;
+var wins = 0;
+var losses = 0;
 
 //Define nothing, hits, ships and misses
 var HIT = 1;
@@ -38,6 +40,7 @@ function reset() {
   }
   $("td").removeClass("red");
   $("td").removeClass("orange");
+  $("#subheader").text("Good luck.");
   $("#message").text("Torpedoes Available: 25");
   $("#resetBtn").hide();
 }
@@ -45,6 +48,8 @@ function reset() {
 //Checks if the game is won
 function checkLoss() {
   if (torpedoesLeft === 0) { //Use all torpedoes = lose
+    losses = losses + 1;
+    $("#scoreLoss").text(losses);
     $("#message").text("You Lose!");
     $("#resetBtn").show();
     reveal();
@@ -54,7 +59,6 @@ function checkLoss() {
 //Function to show ships if game is lost
  function reveal() {
    for (var x = 0; x < 10; x++) {
-
      for (var y = 0; y < 10; y++) {
        if (board[x][y] === SHIP) {
          $("#"+x+y).addClass("orange");
@@ -78,7 +82,15 @@ $(document).ready(function(){
 
   } // close of for loop
 
-    $("#resetBtn").on("click", reset);
+  $("#resetBtn").on("click", reset); //reset button calls reset function
+
+  $("td").mouseover(function() {
+    $(this).text("X");
+  });
+
+  $("td").mouseout(function(){
+    $(this).text($(this).attr("id"));
+  });
 
   //listen for clicks
   $("td").on("click",
@@ -90,6 +102,7 @@ $(document).ready(function(){
         $(this).addClass("red");
         board[x][y] = MISS;
         torpedoesLeft--;
+        $("#subheader").text("Miss!");
         $("#message").text("Torpedoes Available: " + torpedoesLeft);
         checkLoss();
       }
@@ -98,12 +111,15 @@ $(document).ready(function(){
         $(this).addClass("orange");
         hitScore++;
         torpedoesLeft--;
+        $("#subheader").text("Hit!");
         $("#message").text("Torpedoes Available: " + torpedoesLeft);
         checkLoss();
       }
 
-      if (hitScore === 5)
+      if (hitScore === 5) //5 hits is a win
       {
+        wins = wins + 1;
+        $("#scoreWin").text(wins);
         $("#message").text("You Win!");
         $("#resetBtn").show();
       }

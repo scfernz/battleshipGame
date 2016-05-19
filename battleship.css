@@ -2,6 +2,10 @@ body {
   background-image: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/navy_blue.png");
 }
 
+.container {
+  margin-bottom: 20px;
+}
+
 td {
     background-color: lightblue;
     height: 55px;
@@ -11,40 +15,8 @@ td {
     color: white;
 }
 
-.red {
-  background-color: red;
-}
-
-.orange {
-  background-color: orange
-}
-
-h1 {
-  text-align: center;
-}
-
-h2 {
-  text-align: center;
-  font-size: 48pt;
-  color: white;
-}
-
-h3 {
-    text-align: center;
-    font-size: 30pt;
-    color: white;
-}
-
-/*
-body {
-  background-image: url(http://4.bp.blogspot.com/-6zb1sArEyc0/U6qi2rF3aBI/AAAAAAAAezo/d-MmdU5ZmVc/s1600/1+mejor.jpg);
-}*/
-
-.jumbotron {
-  background-image: url(http://4.bp.blogspot.com/-6zb1sArEyc0/U6qi2rF3aBI/AAAAAAAAezo/d-MmdU5ZmVc/s1600/1+mejor.jpg);
-  background-size: cover;
-  background-position: center;
-  color: rgba(255,255,255,1);
+td:hover {
+  background-color: pink;
 }
 
 .btn {
@@ -52,15 +24,78 @@ body {
   color: black;
 }
 
-@media (max-width: 600px) {
+.red {
+  background-color: red;
+}
+
+.red:hover {
+  background-color: #990000;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.orange:hover {
+  background-color: #CC8400;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  font-size: 48pt;
+  color: white;
+}
+
+h3, p {
+    font-size: 30pt;
+    color: white;
+}
+
+hr {
+  width: 90%;
+}
+
+.jumbotron {
+  padding-left: 20px;
+  background-image: url("28H.jpg");
+  background-size: cover;
+  background-position: bottom;
+  color: black;
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+}
+
+
+@media (max-width: 1200px) {
   h2 {
-    font-size: 20pt;
+    font-size: 30pt;
+    text-align: center;
   }
-  h3 {
-    font-size: 18pt;
+  h3, p {
+    font-size: 24pt;
+    text-align: center;
   }
   td {
-    height: 30px;
-    width: 30px;
+    height: 45px;
+    width: 45px;
+  }
+}
+
+@media (max-width: 600px) {
+  h2 {
+    font-size: 18pt;
+    text-align: center;
+  }
+  h3, p {
+    font-size: 12pt;
+    text-align: center;
+  }
+  td {
+    height: 35px;
+    width: 35px;
   }
 }
