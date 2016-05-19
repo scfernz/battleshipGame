@@ -1,6 +1,6 @@
 //Initialize global variables
 var torpedoesLeft = 25;
-var board = [ [], [], [] , [], [], [], [], [], [], [] ];
+var board = [ [], [], [] , [], [], [], [], [], [], [], [] ];
 var hitScore = 0;
 var wins = 0;
 var losses = 0;
@@ -11,30 +11,96 @@ var MISS = -1;
 var SHIP = 0;
 var NOTHING = undefined;
 
+// Checks if number is 0 to not create negative number
+function ifZero(int) {
+  if (int > 0) {
+    return int;
+  }
+  else
+    return 1;
+  }
 
-//Add 5 random ships
-function addShips() {
-    var shipsPlaced = 0;
-    while(shipsPlaced < 5) {
+// Adds a five block ship
+function addShipsFive() {
       var j = Math.floor(Math.random()*10);
-      var k = Math.floor(Math.random()*10);
-      if (board[j][k] != SHIP) {
-        board[j][k] = SHIP;
-        shipsPlaced++;
-        alert("" + j + k);
+      var k = Math.floor(Math.random()*6);
+      var oneShip = 0;
+      console.log(k);
+      while (oneShip < 1) {
+      console.log("" + j + k);
+          if ((board[j][k] != SHIP) && (board[j+1][k] != SHIP) && (board[j][k+1] != SHIP) && (board[ifZero(j) - 1 ][k] != SHIP) && (board[j][ifZero(k) - 1] != SHIP)) {
+              for (var five = 0; five < 5; five++) {
+                board[j][k + five]= SHIP;
+                console.log("increment");
+              }
+              shipsPlaced++;
+              oneShip = oneShip + 1;
+            }
+
+
+    };
+}
+
+// Adds a one block ship
+function addShipsOne() {
+        var place = 0;
+        var j = Math.floor(Math.random()*10);
+        var k = Math.floor(Math.random()*10);
+        console.log("" + j + k);
+        while (place < 1 && (board[j][k] != SHIP)) {
+          if ((board[j+1][k] != SHIP) && (board[j][k+1] != SHIP) && (board[ifZero(j) - 1 ][k] != SHIP) && (board[j][ifZero(k) - 1] != SHIP)) {
+            board[j][k] = SHIP;
+            shipsPlaced++;
+            place = place + 1;
+          }
+          else {
+            k = Math.floor(Math.random()*10);
+          }
       }
-    }
+    };
 
-  };
-
-//Call function for adding ships to board array
-addShips();
+//Adds a four block ship
+  function addShipsFour() {
+        var j = Math.floor(Math.random()*10);
+        var k = Math.floor(Math.random()*10);
+        console.log("" + j + k);
+        var oneShip = 0;
+        while (oneShip < 1) {
+        if ((board[j][k] != SHIP) && (board[j+4][k] != SHIP) && (board[j][k+1] != SHIP) && (board[ifZero(j) - 1 ][k] != SHIP) && (board[j][ifZero(k) - 1] != SHIP)) {
+          if (k >= 0 && k < 7) {
+            for (var four = 0; four < 4; four++) {
+              board[j][k + four]= SHIP;
+                oneShip = oneShip + 1;
+            }
+            shipsPlaced++;
+          }
+          else {
+              k = Math.floor(Math.random()*10);
+          }
+        }
+      };
+}
+//Add 5 random ships
+var shipsPlaced = 0;
+//
+// function addShips () {
+//   while (shipsPlaced < 4) {
+    // addShipsFour();
+    // addShipsFour();
+    addShipsOne();
+    addShipsFive();
+//     console.log(shipsPlaced);
+//   }
+//
+// }
+//
+// addShips();
 
 //Reset the variables and UI for new games
 function reset() {
   torpedoesLeft = 25;
   hitScore = 0;
-  board = [ [], [], [] , [], [], [], [], [], [], [] ];
+  board = [ [], [], [] , [], [], [], [], [], [], [], [] ];
   for (var i = 0; i<5; i++) {
     board[Math.floor(Math.random()*10)][Math.floor(Math.random()*10)] = SHIP;
   }
@@ -69,25 +135,28 @@ function checkLoss() {
 
 
 $(document).ready(function(){
-  //hide reset button
+  //Hide reset button
   $("#resetBtn").hide();
 
-  //table
-  for (var row = 0; row < 10; row++) { //creates table rows
+  //Table
+  for (var row = 0; row < 10; row++) { //Creates table rows
       var insert = $("#gameboard").append("<tr></tr>");
 
-    for (var data = 0; data < 10; data++) { //populates table with data and ID
-      insert.append('<td id="' + row + data + '">' + row + data  + '</td>');
+    for (var data = 0; data < 10; data++) { //Populates table with data and ID
+      insert.append('<td id="' + row + data + '">' + board[row][data] + '</td>');
     }
 
-  } // close of for loop
+  } // Close of for loop
 
   $("#resetBtn").on("click", reset); //reset button calls reset function
 
+
+  //Mouse over table data places an 'X'
   $("td").mouseover(function() {
     $(this).text("X");
   });
 
+  //Mouse cursor moves out of table data replaces 'id'
   $("td").mouseout(function(){
     $(this).text($(this).attr("id"));
   });
@@ -98,7 +167,7 @@ $(document).ready(function(){
         var x = parseInt($(this).attr("id").charAt(0));
         var y = parseInt($(this).attr("id").charAt(1));
 
-      if (board[x][y] === NOTHING && torpedoesLeft > 0) { //red if miss
+      if (board[x][y] === NOTHING && torpedoesLeft > 0) { //Red if miss
         $(this).addClass("red");
         board[x][y] = MISS;
         torpedoesLeft--;
@@ -107,8 +176,9 @@ $(document).ready(function(){
         checkLoss();
       }
 
-      if (board[x][y] === SHIP && torpedoesLeft > 0) { //orange if hit
+      if (board[x][y] === SHIP && torpedoesLeft > 0) { //Orange if hit
         $(this).addClass("orange");
+        board[x][y] = HIT;
         hitScore++;
         torpedoesLeft--;
         $("#subheader").text("Hit!");
@@ -124,7 +194,7 @@ $(document).ready(function(){
         $("#resetBtn").show();
       }
 
-    }) //end click function
+    }) //End click function
 
 
-}); //close document ready function
+}); //Close document ready function
